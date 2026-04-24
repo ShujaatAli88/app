@@ -44,7 +44,7 @@ export default function Navigation() {
         }`}
       >
         <div className="px-6 sm:px-8 lg:px-16 xl:px-24">
-          <div className="max-w-7xl mx-auto flex items-center justify-between h-20 lg:h-24">
+          <div className="max-w-7xl mx-auto flex items-center justify-between h-16 lg:h-20 xl:h-24">
             {/* Logo */}
             <a
               href="#hero"
@@ -55,15 +55,15 @@ export default function Navigation() {
               className="flex items-center gap-3 group"
             >
               {/* Exquisite corner-bracket logo frame */}
-              <div className="logo-bracket shrink-0 p-3">
+              <div className="logo-bracket shrink-0 p-1.5 sm:p-2 lg:p-3">
                 <div className="logo-bracket-inner">
                   <span className="corner-tr" />
                   <span className="corner-bl" />
                   <img
                     src="/logo.png"
                     alt="Logo"
-                    className="logo-breathe object-contain relative z-10"
-                    style={{ height: '72px', width: 'auto', display: 'block' }}
+                    className="logo-breathe object-contain relative z-10 h-10 sm:h-12 lg:h-[64px]"
+                    style={{ width: 'auto', display: 'block' }}
                   />
                 </div>
               </div>
@@ -87,7 +87,7 @@ export default function Navigation() {
             </a>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-1">
+            <div className="hidden xl:flex items-center gap-0.5">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
@@ -96,7 +96,7 @@ export default function Navigation() {
                     e.preventDefault();
                     scrollToSection(link.href);
                   }}
-                  className="px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors relative group"
+                  className="px-3 py-2 text-sm text-gray-400 hover:text-white transition-colors relative group"
                 >
                   {link.label}
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-px bg-[#ff6b35] group-hover:w-1/2 transition-all" />
@@ -105,7 +105,7 @@ export default function Navigation() {
             </div>
 
             {/* CTA Button */}
-            <div className="hidden lg:block">
+            <div className="hidden xl:block">
               <Button
                 onClick={() => scrollToSection('#contact')}
                 className="bg-[#ff6b35] hover:bg-[#e55a2b] text-white px-6"
@@ -117,7 +117,7 @@ export default function Navigation() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden w-10 h-10 bg-[#111] border border-[#333] rounded-lg flex items-center justify-center"
+              className="xl:hidden w-10 h-10 bg-[#111] border border-[#333] rounded-lg flex items-center justify-center"
             >
               {isMobileMenuOpen ? (
                 <X className="w-5 h-5 text-white" />
@@ -131,7 +131,7 @@ export default function Navigation() {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ${
+        className={`fixed inset-0 z-40 xl:hidden transition-all duration-300 ${
           isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
       >
@@ -143,7 +143,7 @@ export default function Navigation() {
 
         {/* Menu Content */}
         <div
-          className={`absolute top-20 left-4 right-4 bg-[#111] border border-[#333] rounded-xl p-6 transition-all duration-300 ${
+          className={`absolute top-16 lg:top-20 left-4 right-4 bg-[#111] border border-[#333] rounded-xl p-6 transition-all duration-300 ${
             isMobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0'
           }`}
         >

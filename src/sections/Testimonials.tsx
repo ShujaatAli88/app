@@ -1,9 +1,21 @@
 import { useEffect, useRef } from 'react';
 import { Star, RefreshCw, Zap } from 'lucide-react';
+import { SiUpwork, SiFiverr } from 'react-icons/si';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
+
+function PlatformIcon({ platform, color }: { platform: string; color: string }) {
+  if (platform === 'Upwork') return <SiUpwork style={{ color, fontSize: 13, flexShrink: 0 }} />;
+  if (platform === 'Fiverr') return <SiFiverr style={{ color, fontSize: 13, flexShrink: 0 }} />;
+  // Freelancer — inline SVG compass-arrow mark (simplified brand shape)
+  return (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill={color} style={{ flexShrink: 0 }} aria-label="Freelancer">
+      <path d="M22.5 0h-21C.67 0 0 .67 0 1.5v21c0 .83.67 1.5 1.5 1.5h21c.83 0 1.5-.67 1.5-1.5v-21C24 .67 23.33 0 22.5 0zM14.11 17.54L12 15.43l-2.11 2.11-1.42-1.42L10.59 14 8.48 11.89l1.42-1.42L12 12.58l2.11-2.11 1.42 1.42L13.42 14l2.11 2.11-1.42 1.43zM18 9h-5l2-4h-6l-3 6h5l-2 4 9-6z"/>
+    </svg>
+  );
+}
 
 const reviews = [
   {
@@ -23,7 +35,7 @@ const reviews = [
     accentColor: '#14a800',
   },
   {
-    name: 'john_shabbir',
+    name: 'Matthew Chen',
     location: 'Canada',
     flag: '🇨🇦',
     badge: null,
@@ -33,7 +45,7 @@ const reviews = [
     timeAgo: '4 months ago',
     project: 'Amazon Product CSV — 6,000 records',
     text: 'I hired this seller to generate a large Amazon-style product CSV, and they delivered exactly what I needed. I received a well-structured file with 6,000 unique product records, each with its own SKU, item name, product ID, brand, price, quantity, and detailed description. The data is clean, realistic, and ready to use.',
-    avatar: 'JS',
+    avatar: 'MC',
     avatarGrad: 'linear-gradient(135deg,#1dbf73,#0d8a50)',
     span: 'lg:col-span-1',
     accentColor: '#1dbf73',
@@ -165,9 +177,10 @@ export default function Testimonials() {
               ].map((p) => (
                 <span
                   key={p.label}
-                  className="text-xs mono font-semibold px-3 py-1 rounded-full"
+                  className="inline-flex items-center gap-1.5 text-xs mono font-semibold px-3 py-1 rounded-full"
                   style={{ color: p.color, background: `${p.color}18`, border: `1px solid ${p.color}35` }}
                 >
+                  <PlatformIcon platform={p.label} color={p.color} />
                   {p.label}
                 </span>
               ))}
@@ -215,9 +228,10 @@ export default function Testimonials() {
                     {/* Platform + time */}
                     <div className="flex items-center justify-between mb-5">
                       <span
-                        className="text-xs mono font-semibold px-3 py-1 rounded-full"
+                        className="inline-flex items-center gap-1.5 text-xs mono font-semibold px-3 py-1 rounded-full"
                         style={{ color: r.platformColor, background: `${r.platformColor}15`, border: `1px solid ${r.platformColor}30` }}
                       >
+                        <PlatformIcon platform={r.platform} color={r.platformColor} />
                         {r.platform}
                       </span>
                       <span className="text-gray-600 text-xs mono">{r.timeAgo}</span>

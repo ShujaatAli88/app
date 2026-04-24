@@ -214,17 +214,17 @@ export default function Hero() {
       />
       
       {/* Content */}
-      <div className="relative z-10 w-full px-6 sm:px-8 lg:px-16 xl:px-24 py-20">
+      <div className="relative z-10 w-full px-6 sm:px-8 lg:px-16 xl:px-24 pt-24 sm:pt-28 lg:pt-32 pb-20">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Text Content */}
           <div ref={textRef} className="space-y-8">
             {/* Greeting */}
             <div className="space-y-2">
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
                 <p className="mono text-sm text-[#ff6b35] tracking-wider uppercase data-pulse">
                   Senior Web Data Engineer
                 </p>
-                <span className="inline-flex items-center gap-1.5 bg-green-500/10 border border-green-500/30 rounded-full px-3 py-1 text-xs mono text-green-400">
+                <span className="inline-flex w-fit items-center gap-1.5 bg-green-500/10 border border-green-500/30 rounded-full px-3 py-1 text-xs mono text-green-400">
                   <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
                   Available for hire
                 </span>
