@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUp } from 'lucide-react';
+import { Analytics } from '@vercel/analytics/react';
 
 import Navigation from './sections/Navigation';
 import Hero from './sections/Hero';
@@ -99,6 +100,7 @@ function App() {
       </main>
       <Footer />
       <BackToTop />
+      <Analytics />
     </div>
   );
 }
