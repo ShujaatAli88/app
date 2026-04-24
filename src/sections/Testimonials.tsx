@@ -258,7 +258,7 @@ export default function Testimonials() {
                       {/* Avatar */}
                       <div
                         className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-xs shrink-0 ring-2"
-                        style={{ background: r.avatarGrad, ringColor: `${r.accentColor}40` }}
+                        style={{ background: r.avatarGrad, outline: `2px solid ${r.accentColor}40` }}
                       >
                         {r.avatar}
                       </div>

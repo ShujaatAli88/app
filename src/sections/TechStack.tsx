@@ -11,7 +11,7 @@ import {
   SiGooglebigquery, SiGooglechrome, SiOpenapiinitiative,
   SiPandas, SiNumpy, SiGit, SiSentry, SiGooglesheets,
   SiCloudflare, SiShieldsdotio, SiIlovepdf, SiClockify,
-  SiAiohttp, SiApacheairflow,
+  SiAiohttp,
 } from 'react-icons/si';
 import { FaAws } from 'react-icons/fa';
 import { IoScanOutline } from 'react-icons/io5';
