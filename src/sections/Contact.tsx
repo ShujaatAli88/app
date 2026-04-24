@@ -26,6 +26,7 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
   useEffect(() => {
@@ -79,25 +80,31 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Create mailto link with form data
-    const subject = encodeURIComponent(`Message from ${formData.name} - Data Engineering Inquiry`);
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-    );
-    const mailtoLink = `mailto:shujaatalee888@gmail.com?subject=${subject}&body=${body}`;
-    
-    // Open email client
-    window.location.href = mailtoLink;
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    // Reset after showing success
-    setTimeout(() => {
-      setIsSubmitted(false);
+    setError(null);
+
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/shujaatalee888@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _subject: `Portfolio Contact: ${formData.name}`,
+          _captcha: 'false',
+        }),
+      });
+
+      if (!res.ok) throw new Error('send_failed');
+
+      setIsSubmitted(true);
       setFormData({ name: '', email: '', message: '' });
-    }, 3000);
+      setTimeout(() => setIsSubmitted(false), 5000);
+    } catch {
+      setError('Failed to send. Try emailing directly: shujaatalee888@gmail.com');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -235,7 +242,7 @@ export default function Contact() {
                     </div>
 
                     {/* Submit Button */}
-                    <div className="pt-4">
+                    <div className="pt-4 space-y-3">
                       <Button
                         type="submit"
                         disabled={isSubmitting || isSubmitted}
@@ -249,12 +256,12 @@ export default function Contact() {
                           {isSubmitting ? (
                             <>
                               <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                              <span className="mono">Processing...</span>
+                              <span className="mono">Sending...</span>
                             </>
                           ) : isSubmitted ? (
                             <>
                               <CheckCircle className="w-5 h-5" />
-                              <span className="mono">Message Sent!</span>
+                              <span className="mono">Message delivered!</span>
                             </>
                           ) : (
                             <>
@@ -264,6 +271,16 @@ export default function Contact() {
                           )}
                         </span>
                       </Button>
+
+                      {error && (
+                        <p className="text-red-400 text-xs mono text-center">{error}</p>
+                      )}
+
+                      {isSubmitted && (
+                        <p className="text-green-400 text-xs mono text-center">
+                          ✓ Email delivered — shujaat will get back to you within an hour Thanks for reaching out!
+                        </p>
+                      )}
                     </div>
                   </form>
                 </div>
@@ -281,27 +298,27 @@ export default function Contact() {
                 <div className="space-y-4">
                   <a
                     href="tel:+923185097422"
-                    className="flex items-center gap-4 p-4 bg-[#1a1a1a] border border-[#333] rounded-lg hover:border-[#ff6b35]/30 transition-all group"
+                    className="flex items-center gap-4 p-4 bg-[#1a1a1a] border border-[#333] rounded-lg hover:border-[#25D366]/40 transition-all duration-300 group"
                   >
-                    <div className="w-12 h-12 bg-[#111] border border-[#333] rounded-lg flex items-center justify-center group-hover:border-[#ff6b35]/50 group-hover:bg-[#ff6b35]/10 transition-all">
-                      <Phone className="w-5 h-5 text-[#ff6b35]" />
+                    <div className="w-12 h-12 bg-[#111] border border-[#333] rounded-lg flex items-center justify-center group-hover:border-[#25D366]/50 group-hover:bg-[#25D366]/10 transition-all duration-300">
+                      <Phone className="w-5 h-5 text-gray-500 group-hover:text-[#25D366] transition-colors duration-300" />
                     </div>
                     <div>
                       <p className="text-sm text-gray-500 mono">Phone</p>
-                      <p className="text-white group-hover:text-[#ff6b35] transition-colors">+92 318 5097422</p>
+                      <p className="text-white group-hover:text-[#25D366] transition-colors duration-300">+92 318 5097422</p>
                     </div>
                   </a>
 
                   <a
                     href="mailto:shujaatalee888@gmail.com"
-                    className="flex items-center gap-4 p-4 bg-[#1a1a1a] border border-[#333] rounded-lg hover:border-[#ff6b35]/30 transition-all group"
+                    className="flex items-center gap-4 p-4 bg-[#1a1a1a] border border-[#333] rounded-lg hover:border-[#EA4335]/40 transition-all duration-300 group"
                   >
-                    <div className="w-12 h-12 bg-[#111] border border-[#333] rounded-lg flex items-center justify-center group-hover:border-[#ff6b35]/50 group-hover:bg-[#ff6b35]/10 transition-all">
-                      <Mail className="w-5 h-5 text-[#ff6b35]" />
+                    <div className="w-12 h-12 bg-[#111] border border-[#333] rounded-lg flex items-center justify-center group-hover:border-[#EA4335]/50 group-hover:bg-[#EA4335]/10 transition-all duration-300">
+                      <Mail className="w-5 h-5 text-gray-500 group-hover:text-[#EA4335] transition-colors duration-300" />
                     </div>
                     <div>
                       <p className="text-sm text-gray-500 mono">Email</p>
-                      <p className="text-white group-hover:text-[#ff6b35] transition-colors">shujaatalee888@gmail.com</p>
+                      <p className="text-white group-hover:text-[#EA4335] transition-colors duration-300">shujaatalee888@gmail.com</p>
                     </div>
                   </a>
 
@@ -328,18 +345,18 @@ export default function Contact() {
                     href="https://linkedin.com/in/shujaat-ali-824253155/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 bg-[#1a1a1a] border border-[#333] rounded-lg hover:border-[#ff6b35]/30 transition-all group"
+                    className="flex items-center gap-3 p-4 bg-[#1a1a1a] border border-[#333] rounded-lg hover:border-[#0077B5]/40 hover:bg-[#0077B5]/8 transition-all duration-300 group"
                   >
-                    <Linkedin className="w-5 h-5 text-[#ff6b35]" />
-                    <span className="text-gray-400 group-hover:text-white transition-colors">LinkedIn</span>
+                    <Linkedin className="w-5 h-5 text-gray-500 group-hover:text-[#0077B5] transition-colors duration-300" />
+                    <span className="text-gray-400 group-hover:text-[#0077B5] transition-colors duration-300">LinkedIn</span>
                   </a>
                   <a
                     href="https://github.com/ShujaatAli88"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 bg-[#1a1a1a] border border-[#333] rounded-lg hover:border-[#ff6b35]/30 transition-all group"
+                    className="flex items-center gap-3 p-4 bg-[#1a1a1a] border border-[#333] rounded-lg hover:border-white/30 hover:bg-white/5 transition-all duration-300 group"
                   >
-                    <Github className="w-5 h-5 text-[#ff6b35]" />
+                    <Github className="w-5 h-5 text-gray-500 group-hover:text-white transition-colors duration-300" />
                     <span className="text-gray-400 group-hover:text-white transition-colors">GitHub</span>
                   </a>
                 </div>

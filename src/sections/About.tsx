@@ -2,6 +2,23 @@ import { useEffect, useRef, useState } from 'react';
 import { MapPin, Calendar, Briefcase, GraduationCap } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import {
+  SiPython, SiSelenium, SiScrapy, SiPostgresql,
+  SiDocker, SiFastapi, SiShieldsdotio, SiApacheairflow,
+} from 'react-icons/si';
+import { FaAws } from 'react-icons/fa';
+
+const coreSkills = [
+  { name: 'Python',         Icon: SiPython,       color: '#3776AB' },
+  { name: 'Selenium',       Icon: SiSelenium,     color: '#43B02A' },
+  { name: 'Scrapy',         Icon: SiScrapy,       color: '#60A839' },
+  { name: 'PostgreSQL',     Icon: SiPostgresql,   color: '#336791' },
+  { name: 'AWS',            Icon: FaAws,          color: '#FF9900' },
+  { name: 'Docker',         Icon: SiDocker,       color: '#2496ED' },
+  { name: 'FastAPI',        Icon: SiFastapi,      color: '#009688' },
+  { name: 'Anti-Bot',       Icon: SiShieldsdotio, color: '#58CA00' },
+  { name: 'Data Pipelines', Icon: SiApacheairflow,color: '#017CEE' },
+];
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -195,15 +212,13 @@ When you work with me, you get more than a scraper. You get a data partner who u
               <div className="space-y-3">
                 <p className="text-sm text-gray-500 mono uppercase">Core Expertise</p>
                 <div className="flex flex-wrap gap-2">
-                  {[
-                    'Python', 'Selenium', 'Scrapy', 'PostgreSQL', 'AWS',
-                    'Docker', 'FastAPI', 'Anti-Bot', 'Data Pipelines',
-                  ].map((skill) => (
+                  {coreSkills.map(({ name, Icon, color }) => (
                     <span
-                      key={skill}
-                      className="px-4 py-2 bg-[#1a1a1a] border border-[#333] rounded-lg text-sm text-gray-400 hover:text-[#ff6b35] hover:border-[#ff6b35]/30 transition-all cursor-default"
+                      key={name}
+                      className="flex items-center gap-2 px-4 py-2 bg-[#1a1a1a] border border-[#333] rounded-lg text-sm text-gray-400 hover:text-white hover:border-[#ff6b35]/30 transition-all cursor-default"
                     >
-                      {skill}
+                      <Icon size={15} color={color} />
+                      {name}
                     </span>
                   ))}
                 </div>

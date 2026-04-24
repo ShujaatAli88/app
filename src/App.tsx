@@ -8,6 +8,8 @@ import Services from './sections/Services';
 import WhyMe from './sections/WhyMe';
 import TechStack from './sections/TechStack';
 import UseCases from './sections/UseCases';
+import DataSample from './sections/DataSample';
+import Testimonials from './sections/Testimonials';
 import Process from './sections/Process';
 import About from './sections/About';
 import Contact from './sections/Contact';
@@ -42,6 +44,8 @@ function App() {
         <WhyMe />
         <TechStack />
         <UseCases />
+        <DataSample />
+        <Testimonials />
         <Process />
         <About />
         <Contact />

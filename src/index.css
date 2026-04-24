@@ -154,6 +154,110 @@
   .node-glow {
     filter: drop-shadow(0 0 8px rgba(255, 107, 53, 0.6));
   }
+
+  /* Logo: slow orbit + orange breathing glow */
+  .logo-breathe {
+    animation: logo-breathe 4s ease-in-out infinite,
+               logo-orbit 6s linear infinite;
+  }
+
+  @keyframes logo-breathe {
+    0%, 100% {
+      filter: drop-shadow(0 0 8px rgba(255,107,53,0.45))
+              drop-shadow(0 0 22px rgba(255,107,53,0.15));
+    }
+    50% {
+      filter: drop-shadow(0 0 20px rgba(255,107,53,0.85))
+              drop-shadow(0 0 45px rgba(255,107,53,0.32));
+    }
+  }
+
+  @keyframes logo-orbit {
+    0%   { transform: translate(0px, -5px); }
+    25%  { transform: translate(5px,  0px); }
+    50%  { transform: translate(0px,  5px); }
+    75%  { transform: translate(-5px, 0px); }
+    100% { transform: translate(0px, -5px); }
+  }
+
+  /* Exquisite logo frame — four corner brackets in site orange */
+  .logo-bracket {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Pulsing ambient halo behind logo */
+  .logo-bracket::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,107,53,0.12) 0%, transparent 70%);
+    animation: logo-halo 4s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @keyframes logo-halo {
+    0%, 100% { opacity: 0.6; transform: scale(0.92); }
+    50%       { opacity: 1;   transform: scale(1.08); }
+  }
+
+  /* Corner bracket lines */
+  .logo-bracket-inner {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .logo-bracket-inner::before,
+  .logo-bracket-inner::after,
+  .logo-bracket-inner > .corner-tr,
+  .logo-bracket-inner > .corner-bl {
+    content: '';
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    border-color: rgba(255,107,53,0.7);
+    border-style: solid;
+    transition: width 0.35s ease, height 0.35s ease, border-color 0.35s ease;
+    z-index: 2;
+  }
+
+  .logo-bracket-inner::before {
+    top: 0; left: 0;
+    border-width: 2px 0 0 2px;
+    border-radius: 3px 0 0 0;
+  }
+
+  .logo-bracket-inner::after {
+    bottom: 0; right: 0;
+    border-width: 0 2px 2px 0;
+    border-radius: 0 0 3px 0;
+  }
+
+  .corner-tr {
+    top: 0; right: 0;
+    border-width: 2px 2px 0 0 !important;
+    border-radius: 0 3px 0 0 !important;
+  }
+
+  .corner-bl {
+    bottom: 0; left: 0;
+    border-width: 0 0 2px 2px !important;
+    border-radius: 0 0 0 3px !important;
+  }
+
+  /* Expand + brighten brackets on parent group hover */
+  .group:hover .logo-bracket-inner::before,
+  .group:hover .logo-bracket-inner::after,
+  .group:hover .corner-tr,
+  .group:hover .corner-bl {
+    width: 18px;
+    height: 18px;
+    border-color: rgba(255,107,53,1);
+  }
 }
 
 /* Custom scrollbar */

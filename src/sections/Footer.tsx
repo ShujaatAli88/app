@@ -1,4 +1,4 @@
-import { Database, Linkedin, Github, Mail, Phone, Heart } from 'lucide-react';
+import { Linkedin, Github, Mail, Phone, Heart } from 'lucide-react';
 
 const footerLinks = [
   {
@@ -45,12 +45,33 @@ export default function Footer() {
                 }}
                 className="flex items-center gap-3 mb-6"
               >
-                <div className="w-12 h-12 bg-[#111] border border-[#333] rounded-lg flex items-center justify-center">
-                  <Database className="w-6 h-6 text-[#ff6b35]" />
+                <div className="logo-bracket shrink-0 p-3">
+                  <div className="logo-bracket-inner">
+                    <span className="corner-tr" />
+                    <span className="corner-bl" />
+                    <img
+                      src="/logo.png"
+                      alt="Logo"
+                      className="logo-breathe object-contain relative z-10"
+                      style={{ height: '80px', width: 'auto', display: 'block' }}
+                    />
+                  </div>
                 </div>
                 <div>
-                  <p className="text-white font-semibold text-lg">Shujaat Ali</p>
-                  <p className="text-xs text-gray-500 mono">Senior Data Engineer</p>
+                  <p
+                    className="font-bold text-lg leading-tight"
+                    style={{
+                      background: 'linear-gradient(90deg,#fff 0%,#ff6b35 55%,#fff 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                    }}
+                  >
+                    Shujaat Ali
+                  </p>
+                  <p className="text-xs mono tracking-widest uppercase text-[#ff6b35]/70">
+                    Senior Data Engineer
+                  </p>
                 </div>
               </a>
               <p className="text-gray-400 max-w-md mb-6 leading-relaxed">
@@ -63,29 +84,29 @@ export default function Footer() {
                   href="https://linkedin.com/in/shujaat-ali-824253155/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 bg-[#111] border border-[#333] rounded-lg flex items-center justify-center hover:border-[#ff6b35]/50 hover:bg-[#ff6b35]/10 transition-all"
+                  className="group w-10 h-10 bg-[#111] border border-[#333] rounded-lg flex items-center justify-center hover:border-[#0077B5]/60 hover:bg-[#0077B5]/10 transition-all duration-300"
                 >
-                  <Linkedin className="w-5 h-5 text-gray-400 hover:text-[#ff6b35]" />
+                  <Linkedin className="w-5 h-5 text-gray-400 group-hover:text-[#0077B5] transition-colors duration-300" />
                 </a>
                 <a
                   href="https://github.com/ShujaatAli88"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 bg-[#111] border border-[#333] rounded-lg flex items-center justify-center hover:border-[#ff6b35]/50 hover:bg-[#ff6b35]/10 transition-all"
+                  className="group w-10 h-10 bg-[#111] border border-[#333] rounded-lg flex items-center justify-center hover:border-white/40 hover:bg-white/10 transition-all duration-300"
                 >
-                  <Github className="w-5 h-5 text-gray-400 hover:text-[#ff6b35]" />
+                  <Github className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors duration-300" />
                 </a>
                 <a
                   href="mailto:shujaatalee888@gmail.com"
-                  className="w-10 h-10 bg-[#111] border border-[#333] rounded-lg flex items-center justify-center hover:border-[#ff6b35]/50 hover:bg-[#ff6b35]/10 transition-all"
+                  className="group w-10 h-10 bg-[#111] border border-[#333] rounded-lg flex items-center justify-center hover:border-[#EA4335]/60 hover:bg-[#EA4335]/10 transition-all duration-300"
                 >
-                  <Mail className="w-5 h-5 text-gray-400 hover:text-[#ff6b35]" />
+                  <Mail className="w-5 h-5 text-gray-400 group-hover:text-[#EA4335] transition-colors duration-300" />
                 </a>
                 <a
                   href="tel:+923185097422"
-                  className="w-10 h-10 bg-[#111] border border-[#333] rounded-lg flex items-center justify-center hover:border-[#ff6b35]/50 hover:bg-[#ff6b35]/10 transition-all"
+                  className="group w-10 h-10 bg-[#111] border border-[#333] rounded-lg flex items-center justify-center hover:border-[#25D366]/60 hover:bg-[#25D366]/10 transition-all duration-300"
                 >
-                  <Phone className="w-5 h-5 text-gray-400 hover:text-[#ff6b35]" />
+                  <Phone className="w-5 h-5 text-gray-400 group-hover:text-[#25D366] transition-colors duration-300" />
                 </a>
               </div>
             </div>
@@ -124,7 +145,7 @@ export default function Footer() {
               © {new Date().getFullYear()} Shujaat Ali. All rights reserved.
             </p>
             <p className="text-sm text-gray-500 flex items-center gap-1">
-              Built with <Heart className="w-4 h-4 text-[#ff6b35]" /> for data excellence
+              Built with <Heart className="w-4 h-4 text-[#ff6b35]" /> for data excellence by Shujaat!
             </p>
           </div>
         </div>

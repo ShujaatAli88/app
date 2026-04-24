@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Database } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const navLinks = [
   { label: 'Services', href: '#services' },
   { label: 'Why Me', href: '#why-me' },
   { label: 'Tech Stack', href: '#tech-stack' },
   { label: 'Use Cases', href: '#use-cases' },
-  { label: 'Process', href: '#process' },
+  { label: 'Live Data', href: '#data-sample' },
+  { label: 'Reviews', href: '#testimonials' },
   { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ];
@@ -43,7 +44,7 @@ export default function Navigation() {
         }`}
       >
         <div className="px-6 sm:px-8 lg:px-16 xl:px-24">
-          <div className="max-w-7xl mx-auto flex items-center justify-between h-16 lg:h-20">
+          <div className="max-w-7xl mx-auto flex items-center justify-between h-20 lg:h-24">
             {/* Logo */}
             <a
               href="#hero"
@@ -51,14 +52,37 @@ export default function Navigation() {
                 e.preventDefault();
                 scrollToSection('#hero');
               }}
-              className="flex items-center gap-2 group"
+              className="flex items-center gap-3 group"
             >
-              <div className="w-10 h-10 bg-[#111] border border-[#333] rounded-lg flex items-center justify-center group-hover:border-[#ff6b35]/50 transition-all">
-                <Database className="w-5 h-5 text-[#ff6b35]" />
+              {/* Exquisite corner-bracket logo frame */}
+              <div className="logo-bracket shrink-0 p-3">
+                <div className="logo-bracket-inner">
+                  <span className="corner-tr" />
+                  <span className="corner-bl" />
+                  <img
+                    src="/logo.png"
+                    alt="Logo"
+                    className="logo-breathe object-contain relative z-10"
+                    style={{ height: '72px', width: 'auto', display: 'block' }}
+                  />
+                </div>
               </div>
+
               <div className="hidden sm:block">
-                <p className="text-white font-semibold leading-tight">Shujaat Ali</p>
-                <p className="text-xs text-gray-500 mono">Data Engineer</p>
+                <p
+                  className="font-bold text-base leading-tight tracking-tight"
+                  style={{
+                    background: 'linear-gradient(90deg,#fff 0%,#ff6b35 55%,#fff 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                  }}
+                >
+                  Shujaat Ali
+                </p>
+                <p className="text-xs mono tracking-widest uppercase text-[#ff6b35]/70">
+                  Data Engineer
+                </p>
               </div>
             </a>
 
