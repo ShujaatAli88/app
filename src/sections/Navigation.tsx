@@ -40,7 +40,7 @@ export default function Navigation() {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
             ? 'bg-black/90 backdrop-blur-lg border-b border-[#222]'
-            : 'bg-transparent'
+            : 'bg-gradient-to-b from-black/75 via-black/30 to-transparent xl:from-transparent xl:via-transparent'
         }`}
       >
         <div className="px-6 sm:px-8 lg:px-16 xl:px-24">
@@ -55,14 +55,14 @@ export default function Navigation() {
               className="flex items-center gap-3 group"
             >
               {/* Exquisite corner-bracket logo frame */}
-              <div className="logo-bracket shrink-0 p-1.5 sm:p-2 lg:p-3">
+              <div className="logo-bracket shrink-0 p-1 lg:p-3">
                 <div className="logo-bracket-inner">
                   <span className="corner-tr" />
                   <span className="corner-bl" />
                   <img
                     src="/logo.png"
                     alt="Logo"
-                    className="logo-breathe object-contain relative z-10 h-10 sm:h-12 lg:h-[64px]"
+                    className="logo-breathe object-contain relative z-10 h-14 lg:h-[64px]"
                     style={{ width: 'auto', display: 'block' }}
                   />
                 </div>

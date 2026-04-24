@@ -163,12 +163,12 @@
 
   @keyframes logo-breathe {
     0%, 100% {
-      filter: drop-shadow(0 0 8px rgba(255,107,53,0.45))
-              drop-shadow(0 0 22px rgba(255,107,53,0.15));
+      filter: drop-shadow(0 0 10px rgba(255,107,53,0.65))
+              drop-shadow(0 0 24px rgba(255,107,53,0.25));
     }
     50% {
-      filter: drop-shadow(0 0 20px rgba(255,107,53,0.85))
-              drop-shadow(0 0 45px rgba(255,107,53,0.32));
+      filter: drop-shadow(0 0 22px rgba(255,107,53,0.95))
+              drop-shadow(0 0 48px rgba(255,107,53,0.40));
     }
   }
 
@@ -178,6 +178,17 @@
     50%  { transform: translate(0px,  5px); }
     75%  { transform: translate(-5px, 0px); }
     100% { transform: translate(0px, -5px); }
+  }
+
+  /* Tighten orbit on small screens for crisp rendering */
+  @media (max-width: 1023px) {
+    @keyframes logo-orbit {
+      0%   { transform: translate(0px, -2px); }
+      25%  { transform: translate(2px,  0px); }
+      50%  { transform: translate(0px,  2px); }
+      75%  { transform: translate(-2px, 0px); }
+      100% { transform: translate(0px, -2px); }
+    }
   }
 
   /* Exquisite logo frame — four corner brackets in site orange */
