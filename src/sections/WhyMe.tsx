@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react';
-import { 
-  CheckCircle2, 
-  XCircle, 
-  Server, 
-  Activity, 
-  Shield, 
+import { useEffect, useRef, useState } from 'react';
+import {
+  CheckCircle2,
+  XCircle,
+  Server,
+  Activity,
+  Shield,
   Zap,
   Clock,
   Database
@@ -30,66 +30,89 @@ const solutions = [
   { icon: CheckCircle2, text: 'On-time, every time' },
 ];
 
-const stats = [
-  { icon: Server, value: '99.9%', label: 'Uptime SLA' },
-  { icon: Activity, value: '50M+', label: 'Records Extracted' },
-  { icon: Shield, value: '100%', label: 'Data Security' },
-  { icon: Zap, value: '<24h', label: 'Avg Setup Time' },
-  { icon: Clock, value: '3+', label: 'Years Experience' },
-  { icon: Database, value: '50+', label: 'Projects Delivered' },
+interface Stat {
+  icon: typeof Server;
+  value: string;
+  label: string;
+  countTo: number;
+  decimals: number;
+  prefix: string;
+  suffix: string;
+}
+
+const stats: Stat[] = [
+  { icon: Server,    value: '99.9%', label: 'Uptime SLA',         countTo: 99.9, decimals: 1, prefix: '',  suffix: '%'  },
+  { icon: Activity,  value: '50M+',  label: 'Records Extracted',  countTo: 50,   decimals: 0, prefix: '',  suffix: 'M+' },
+  { icon: Shield,    value: '100%',  label: 'Data Security',      countTo: 100,  decimals: 0, prefix: '',  suffix: '%'  },
+  { icon: Zap,       value: '<24h',  label: 'Avg Setup Time',     countTo: 24,   decimals: 0, prefix: '<', suffix: 'h'  },
+  { icon: Clock,     value: '3+',    label: 'Years Experience',   countTo: 3,    decimals: 0, prefix: '',  suffix: '+'  },
+  { icon: Database,  value: '50+',   label: 'Projects Delivered', countTo: 50,   decimals: 0, prefix: '',  suffix: '+'  },
 ];
 
 export default function WhyMe() {
   const sectionRef = useRef<HTMLElement>(null);
   const triggersRef = useRef<ScrollTrigger[]>([]);
+  const [displayValues, setDisplayValues] = useState(stats.map(() => '0'));
+  const animatedRef = useRef(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title animation
       const titleTrigger = ScrollTrigger.create({
         trigger: '.whyme-title',
         start: 'top 80%',
         onEnter: () => {
-          gsap.fromTo(
-            '.whyme-title',
-            { y: 50, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }
-          );
+          gsap.fromTo('.whyme-title', { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' });
         },
         once: true,
       });
       triggersRef.current.push(titleTrigger);
 
-      // Problem/Solution cards animation
       const cardsTrigger = ScrollTrigger.create({
         trigger: '.comparison-container',
         start: 'top 75%',
         onEnter: () => {
-          gsap.fromTo(
-            '.problem-card',
-            { x: -80, opacity: 0 },
-            { x: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }
-          );
-          gsap.fromTo(
-            '.solution-card',
-            { x: 80, opacity: 0 },
-            { x: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: 'power3.out' }
-          );
+          gsap.fromTo('.problem-card', { x: -80, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8, ease: 'power3.out' });
+          gsap.fromTo('.solution-card', { x: 80, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: 'power3.out' });
         },
         once: true,
       });
       triggersRef.current.push(cardsTrigger);
 
-      // Stats animation
       const statsTrigger = ScrollTrigger.create({
         trigger: '.stats-container',
         start: 'top 80%',
         onEnter: () => {
-          gsap.fromTo(
-            '.stat-item',
-            { y: 40, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out' }
-          );
+          gsap.fromTo('.stat-item', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out' });
+
+          if (!animatedRef.current) {
+            animatedRef.current = true;
+            stats.forEach((stat, i) => {
+              const counter = { val: 0 };
+              gsap.to(counter, {
+                val: stat.countTo,
+                duration: 2,
+                delay: i * 0.1,
+                ease: 'power2.out',
+                onUpdate() {
+                  const formatted = stat.decimals > 0
+                    ? counter.val.toFixed(stat.decimals)
+                    : Math.floor(counter.val).toString();
+                  setDisplayValues(prev => {
+                    const next = [...prev];
+                    next[i] = `${stat.prefix}${formatted}${stat.suffix}`;
+                    return next;
+                  });
+                },
+                onComplete() {
+                  setDisplayValues(prev => {
+                    const next = [...prev];
+                    next[i] = stat.value;
+                    return next;
+                  });
+                },
+              });
+            });
+          }
         },
         once: true,
       });
@@ -109,9 +132,8 @@ export default function WhyMe() {
       id="why-me"
       className="relative w-full py-24 lg:py-32 bg-[#0a0a0a]"
     >
-      {/* Subtle grid background */}
       <div className="absolute inset-0 opacity-3">
-        <div 
+        <div
           className="w-full h-full"
           style={{
             backgroundImage: `linear-gradient(to right, #222 1px, transparent 1px), linear-gradient(to bottom, #222 1px, transparent 1px)`,
@@ -122,7 +144,6 @@ export default function WhyMe() {
 
       <div className="relative z-10 px-6 sm:px-8 lg:px-16 xl:px-24">
         <div className="max-w-7xl mx-auto">
-          {/* Section Header */}
           <div className="whyme-title text-center mb-16 lg:mb-20">
             <p className="mono text-sm text-[#ff6b35] tracking-wider uppercase mb-4">
               The Difference
@@ -131,33 +152,24 @@ export default function WhyMe() {
               Why Work <span className="text-gradient">With Me</span>
             </h2>
             <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-              I don't just write scrapers. I engineer production-grade data systems 
+              I don't just write scrapers. I engineer production-grade data systems
               designed for reliability, scale, and long-term success.
             </p>
           </div>
 
-          {/* Comparison Cards */}
           <div className="comparison-container grid lg:grid-cols-2 gap-8 lg:gap-12 mb-20">
-            {/* Problems Card */}
             <div className="problem-card relative">
               <div className="h-full bg-gradient-to-br from-[#1a0a0a] to-[#111] border border-[#332222] rounded-xl p-8 lg:p-10">
                 <div className="flex items-center gap-3 mb-8">
                   <div className="w-12 h-12 bg-[#331111] border border-[#552222] rounded-lg flex items-center justify-center">
                     <XCircle className="w-6 h-6 text-red-500" />
                   </div>
-                  <h3 className="text-xl font-semibold text-red-400">
-                    The Problem
-                  </h3>
+                  <h3 className="text-xl font-semibold text-red-400">The Problem</h3>
                 </div>
-                <p className="text-gray-400 mb-6">
-                  Frustrated by broken scrapers and unreliable data?
-                </p>
+                <p className="text-gray-400 mb-6">Frustrated by broken scrapers and unreliable data?</p>
                 <ul className="space-y-4">
                   {problems.map((problem, index) => (
-                    <li 
-                      key={index}
-                      className="flex items-center gap-3 text-gray-500"
-                    >
+                    <li key={index} className="flex items-center gap-3 text-gray-500">
                       <problem.icon className="w-5 h-5 text-red-500/70 flex-shrink-0" />
                       <span>{problem.text}</span>
                     </li>
@@ -166,26 +178,18 @@ export default function WhyMe() {
               </div>
             </div>
 
-            {/* Solutions Card */}
             <div className="solution-card relative">
               <div className="h-full bg-gradient-to-br from-[#0a1a0a] to-[#111] border border-[#223322] rounded-xl p-8 lg:p-10">
                 <div className="flex items-center gap-3 mb-8">
                   <div className="w-12 h-12 bg-[#113311] border border-[#225522] rounded-lg flex items-center justify-center">
                     <CheckCircle2 className="w-6 h-6 text-green-500" />
                   </div>
-                  <h3 className="text-xl font-semibold text-green-400">
-                    The Solution
-                  </h3>
+                  <h3 className="text-xl font-semibold text-green-400">The Solution</h3>
                 </div>
-                <p className="text-gray-400 mb-6">
-                  I build systems that last.
-                </p>
+                <p className="text-gray-400 mb-6">I build systems that last.</p>
                 <ul className="space-y-4">
                   {solutions.map((solution, index) => (
-                    <li 
-                      key={index}
-                      className="flex items-center gap-3 text-gray-300"
-                    >
+                    <li key={index} className="flex items-center gap-3 text-gray-300">
                       <solution.icon className="w-5 h-5 text-[#ff6b35] flex-shrink-0" />
                       <span>{solution.text}</span>
                     </li>
@@ -195,7 +199,6 @@ export default function WhyMe() {
             </div>
           </div>
 
-          {/* Stats Grid */}
           <div className="stats-container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-6">
             {stats.map((stat, index) => (
               <div
@@ -207,8 +210,8 @@ export default function WhyMe() {
                     <stat.icon className="w-5 h-5 text-[#ff6b35]" />
                   </div>
                 </div>
-                <p className="text-2xl lg:text-3xl font-bold text-white mb-1">
-                  {stat.value}
+                <p className="text-2xl lg:text-3xl font-bold text-white mb-1 tabular-nums">
+                  {displayValues[index]}
                 </p>
                 <p className="text-xs text-gray-500 mono uppercase tracking-wider">
                   {stat.label}
@@ -217,7 +220,6 @@ export default function WhyMe() {
             ))}
           </div>
 
-          {/* Bottom CTA */}
           <div className="text-center mt-16">
             <p className="text-gray-400 mb-6">
               Built for <span className="text-white font-semibold">businesses</span>, not demos.

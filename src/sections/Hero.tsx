@@ -220,9 +220,15 @@ export default function Hero() {
           <div ref={textRef} className="space-y-8">
             {/* Greeting */}
             <div className="space-y-2">
-              <p className="mono text-sm text-[#ff6b35] tracking-wider uppercase data-pulse">
-                Senior Web Data Engineer
-              </p>
+              <div className="flex flex-wrap items-center gap-3">
+                <p className="mono text-sm text-[#ff6b35] tracking-wider uppercase data-pulse">
+                  Senior Web Data Engineer
+                </p>
+                <span className="inline-flex items-center gap-1.5 bg-green-500/10 border border-green-500/30 rounded-full px-3 py-1 text-xs mono text-green-400">
+                  <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
+                  Available for hire
+                </span>
+              </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight">
                 <span className="typewriter-cursor">{greetingDecoded}</span>
               </h1>
@@ -327,6 +333,8 @@ export default function Hero() {
                   src="/hero-portrait.jpg"
                   alt="Shujaat Ali"
                   className="w-full max-w-md h-auto object-cover"
+                  loading="eager"
+                  fetchPriority="high"
                 />
               </div>
             </div>

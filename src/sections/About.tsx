@@ -166,6 +166,7 @@ When you work with me, you get more than a scraper. You get a data partner who u
                     src="/about-portrait.jpg"
                     alt="Shujaat Ali"
                     className="w-full h-full object-cover"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 </div>
